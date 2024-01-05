@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
                 val coroutineScope = rememberCoroutineScope()
 
                 if (cameraPermissionState.status.isGranted) {
-                    val uiState by viewModel.uiState.collectAsState()
                     MainScreen(
                         rememberPhotoCollectionUiElementState(
                             this,

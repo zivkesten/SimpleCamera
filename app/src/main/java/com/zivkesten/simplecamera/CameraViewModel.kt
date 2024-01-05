@@ -109,11 +109,11 @@ class CameraViewModel @Inject constructor(): ViewModel() {
     private fun saveImage(image: ImageData) {
         imageList.add(image)
         clearPreviousOrientationData()
-            uiState.mutable().value = uiState.value.copy(
-                step = CAMERA,
-                isSavingImage = false,
-                takenImages = imageList.copy(selectedImage)
-            )
+        uiState.mutable().value = uiState.value.copy(
+            step = CAMERA,
+            isSavingImage = false,
+            takenImages = imageList.copy(selectedImage)
+        )
 
 
         imagesTimestamps.add(System.currentTimeMillis())
@@ -128,15 +128,15 @@ class CameraViewModel @Inject constructor(): ViewModel() {
         val attachmentItems = mutableListOf<String>()
         var file: File
 
-            imageList.forEach { imageData ->
-                    try {
-                        file = File(URI.create(imageData.uri.toString()))
-                        attachmentItems.add(file.path)
+        imageList.forEach { imageData ->
+            try {
+                file = File(URI.create(imageData.uri.toString()))
+                attachmentItems.add(file.path)
 
-                    } catch (e: Exception) {
-                        Log.e(TAG, "getAttachmentList:  file error $e")
-                    }
-                }
+            } catch (e: Exception) {
+                Log.e(TAG, "getAttachmentList:  file error $e")
+            }
+        }
 
 
         _attachmentsItem.value = attachmentItems
@@ -149,7 +149,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
         scrollTo = imageList.firstOrNull()?.uri
 
         // Change the selected value in the original map to be the one we scroll to
-        val takenImages = imageList.copy(scrollTo) ?: emptyList()
+        val takenImages = imageList.copy(scrollTo)
 
         // Emit a new ui state
         uiState.mutable().value = uiState.value.copy(

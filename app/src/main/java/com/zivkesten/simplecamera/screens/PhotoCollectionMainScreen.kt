@@ -2,14 +2,12 @@ package com.zivkesten.simplecamera.screens
 
 import androidx.camera.core.CameraSelector
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.zivkesten.simplecamera.camera.CameraSurface
 import com.zivkesten.simplecamera.camera.rememberCameraSurfaceHelper
 import com.zivkesten.simplecamera.state.PhotoCollectionUiElementState
-import com.zivkesten.simplecamera.state.PhotoCollectionUiState
 
 internal const val CONTROLLER_SIZE: Float = 160f
 

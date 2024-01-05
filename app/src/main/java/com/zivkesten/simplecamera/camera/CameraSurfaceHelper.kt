@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.LifecycleOwner

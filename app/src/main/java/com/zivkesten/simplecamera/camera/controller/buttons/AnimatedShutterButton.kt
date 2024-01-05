@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -98,7 +99,7 @@ fun AnimatedShutterButton(
 
         AnimatedContent(
             targetState = shutterButtonState,
-            transitionSpec = { fadeIn() with fadeOut() },
+            transitionSpec = { fadeIn() togetherWith fadeOut() },
             label = "AnimatedShutterButton shutterButtonState"
         ) {shutterButtonState ->
             when (shutterButtonState) {

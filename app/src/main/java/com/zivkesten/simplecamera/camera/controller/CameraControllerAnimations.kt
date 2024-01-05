@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.animation.with
 import androidx.compose.ui.Alignment
 
 private const val SCALE_IN_ANIMATION_DURATION = 400

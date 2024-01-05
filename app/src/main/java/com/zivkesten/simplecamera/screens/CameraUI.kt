@@ -6,6 +6,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +32,7 @@ fun CameraUI(
 ) {
     AnimatedContent(
         targetState = uiElementState.step,
-        transitionSpec = { fadeIn() with fadeOut(animationSpec = tween(delayMillis = 200)) },
+        transitionSpec = { fadeIn() togetherWith fadeOut(animationSpec = tween(delayMillis = 200)) },
         label = CONTROLLER_ANIMATED_CONTENT
     ) { targetScreen ->
         when (targetScreen) {

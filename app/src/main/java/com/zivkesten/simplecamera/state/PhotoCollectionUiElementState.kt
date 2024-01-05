@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.net.Uri
 import android.util.Log
-import androidx.camera.core.AspectRatio
 import androidx.camera.core.AspectRatio.RATIO_16_9
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -21,10 +20,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
 import com.zivkesten.simpleCamera.R
-import com.zivkesten.simplecamera.camera.controller.model.ImageData
-import com.zivkesten.simplecamera.OrientationData
 import com.zivkesten.simplecamera.CameraViewModel
+import com.zivkesten.simplecamera.OrientationData
 import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.event.CameraUiEvent
 import com.zivkesten.simplecamera.toSurfaceOrientation
@@ -127,13 +126,6 @@ class PhotoCollectionUiElementState(
         )
     }
 
-    fun closeButton(
-        viewModel: CameraViewModel,
-        action: (CameraViewModel) -> Unit
-    ) = action(viewModel)
-
-
-
     private fun observeAttachments() {
         viewModel.viewModelScope.launch {
             viewModel.attachmentsItem.collect { attachments ->
@@ -144,18 +136,17 @@ class PhotoCollectionUiElementState(
         }
     }
 
-    fun generateTempFileName(extension: String): String {
+    private fun generateTempFileName(): String {
         val id: String = UUID.randomUUID().toString()
-        return id + extension
+        return id + JPG_SUFFIX
     }
-
 
     private fun takePhoto(
         onImageCaptured: (Uri, Boolean) -> Unit,
         onErrorInvocation: ((String, ImageCaptureException) -> Unit)? = null
     ) {
         imageCapture.targetRotation = sensorOrientation.toSurfaceOrientation()
-        val fileName = generateTempFileName(JPG_SUFFIX)
+        val fileName = generateTempFileName()
 
         val photoFile: File? = getPhotoFile(activity, fileName, onErrorInvocation)
 
