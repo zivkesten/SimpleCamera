@@ -7,18 +7,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zivkesten.simplecamera.utils.OrientationData
-import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.model.copy
-import com.zivkesten.simplecamera.presentation.state.CameraUiState
 import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.state.CameraUiState
+import com.zivkesten.simplecamera.utils.OrientationData
+import com.zivkesten.simplecamera.utils.Rotation
+import com.zivkesten.simplecamera.utils.mutable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
-import java.lang.IllegalStateException
 import java.net.URI
 import javax.inject.Inject
 
@@ -81,8 +81,6 @@ class CameraViewModel @Inject constructor(): ViewModel() {
         )
     }
 
-    fun <T> StateFlow<T>.mutable() = (this as? MutableStateFlow<T>)
-        ?: throw IllegalStateException("StateFlow< object must be mutable")
 
     private fun thumbnailClicked(item: ImageData) {
         selectedImage = item.uri

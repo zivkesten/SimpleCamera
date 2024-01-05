@@ -1,7 +1,7 @@
 package com.zivkesten.simplecamera.camera.controller.state
 
 import android.net.Uri
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
+import com.zivkesten.simplecamera.camera.controller.buttons.ShutterButtonState
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.CAMERA
 import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.GALLERY

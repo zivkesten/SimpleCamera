@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons
+package com.zivkesten.simplecamera.camera.controller.buttons
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility

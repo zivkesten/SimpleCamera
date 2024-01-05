@@ -16,7 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
+import com.zivkesten.simplecamera.camera.controller.buttons.ShutterButtonState
 import com.zivkesten.simpleCamera.R
 import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
 import com.zivkesten.simplecamera.utils.OrientationData

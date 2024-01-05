@@ -19,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.CenterButton
+import com.zivkesten.simplecamera.camera.controller.buttons.CenterButton
+import com.zivkesten.simplecamera.camera.controller.buttons.EndButton
+import com.zivkesten.simplecamera.camera.controller.buttons.StartButton
 import com.zivkesten.simplecamera.camera.controller.buttons.ContinueButton
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.EndButton
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.StartButton
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ButtonAnimation
 import com.zivkesten.simplecamera.ui.animations.EnterAnimation
 import com.zivkesten.simplecamera.ui.RotateToPosition
