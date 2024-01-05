@@ -3,14 +3,14 @@ package com.zivkesten.simplecamera.camera.controller.state
 import android.net.Uri
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
-import com.zivkesten.simplecamera.CameraViewModel.Companion.CAMERA
-import com.zivkesten.simplecamera.CameraViewModel.Companion.GALLERY
-import com.zivkesten.simplecamera.CameraViewModel.Companion.PREVIEW
-import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.zivkesten.simplecamera.ButtonAnimation
-import com.zivkesten.simplecamera.OrientationData
-import com.zivkesten.simplecamera.Rotation
-import com.zivkesten.simplecamera.initialPosition
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.CAMERA
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.GALLERY
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.PREVIEW
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.camera.controller.thumbnails.ButtonAnimation
+import com.zivkesten.simplecamera.utils.OrientationData
+import com.zivkesten.simplecamera.utils.Rotation
+import com.zivkesten.simplecamera.utils.initialPosition
 
 class CameraControllerUiElementState(
     val step: Int,

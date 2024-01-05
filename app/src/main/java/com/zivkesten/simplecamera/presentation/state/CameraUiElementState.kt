@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.state
+package com.zivkesten.simplecamera.presentation.state
 
 import android.app.Activity
 import android.net.Uri
@@ -18,13 +18,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
 import com.zivkesten.simpleCamera.R
-import com.zivkesten.simplecamera.CameraViewModel
-import com.zivkesten.simplecamera.OrientationData
-import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
+import com.zivkesten.simplecamera.utils.OrientationData
+import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.zivkesten.simplecamera.toSurfaceOrientation
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.utils.toSurfaceOrientation
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
@@ -35,7 +35,7 @@ private const val JPG_SUFFIX = ".jpg"
 private const val ERROR_CREATING_IMAGE = "Error creating image"
 const val ERROR_SAVING_FILE = "Error saving file"
 
-class PhotoCollectionUiElementState(
+class CameraUiElementState(
     private val activity: Activity,
     private val viewModel: CameraViewModel,
     private val onFlowComplete: (List<String>) -> Unit
@@ -56,22 +56,22 @@ class PhotoCollectionUiElementState(
     var isFlashOn by mutableStateOf(false)
 
 
-    val uiState: PhotoCollectionUiState get() = viewModel.uiState.value
+    val cameraUiState: CameraUiState get() = viewModel.cameraUiState.value
 
     private val shouldDisableButton get() = false
 
     private val shutterButtonState: ShutterButtonState
         get() = when {
-            uiState.isSavingImage -> ShutterButtonState.LOADING
+            cameraUiState.isSavingImage -> ShutterButtonState.LOADING
             shouldDisableButton -> ShutterButtonState.DISABLED
             else -> ShutterButtonState.ENABLED
         }
 
     val cameraControllerState get() = CameraControllerUiElementState(
-        uiState.step,
+        cameraUiState.step,
         shutterButtonState,
         CameraControllerUiElementState.ImagesParams(
-            uiState.takenImages,
+            cameraUiState.takenImages,
             viewModel.imageTakenUri,
             viewModel.scrollTo,
             isFlashOn,
@@ -211,13 +211,13 @@ class PhotoCollectionUiElementState(
 }
 
 @Composable
-fun rememberPhotoCollectionUiElementState(
+fun rememberCameraUiElementState(
     activity: Activity,
     viewModel: CameraViewModel,
     onFlowComplete: (List<String>) -> Unit
 
 ) = remember {
-    PhotoCollectionUiElementState(
+    CameraUiElementState(
         activity,
         viewModel,
         onFlowComplete

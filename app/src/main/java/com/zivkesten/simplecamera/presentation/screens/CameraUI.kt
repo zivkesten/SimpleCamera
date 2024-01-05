@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.screens
+package com.zivkesten.simplecamera.presentation.screens
 
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
@@ -12,16 +12,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.zivkesten.simplecamera.CameraViewModel.Companion.CAMERA
-import com.zivkesten.simplecamera.CameraViewModel.Companion.GALLERY
-import com.zivkesten.simplecamera.CameraViewModel.Companion.PREVIEW
-import com.zivkesten.simplecamera.FlashAnimation
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.CAMERA
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.GALLERY
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel.Companion.PREVIEW
+import com.zivkesten.simplecamera.ui.animations.FlashAnimation
 import com.zivkesten.simplecamera.camera.controller.AnimatedCameraTopBar
 import com.zivkesten.simplecamera.camera.controller.CameraController
 import com.zivkesten.simplecamera.camera.controller.FlashButton
 import com.zivkesten.simplecamera.camera.controller.flashAnimationPadding
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.zivkesten.simplecamera.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -58,12 +58,12 @@ fun CameraUI(
 
 @Composable
 fun Preview(uiElementState: CameraControllerUiElementState) {
-    PhotoCollectionPreviewScreen(uiElementState, boxSize = CONTROLLER_SIZE)
+    PreviewScreen(uiElementState, boxSize = CONTROLLER_SIZE)
 }
 
 @Composable
 fun Gallery(uiElementState: CameraControllerUiElementState) {
-    PhotoCollectionGalleryScreen(uiElementState, boxSize = CONTROLLER_SIZE)
+    GalleryScreen(uiElementState, boxSize = CONTROLLER_SIZE)
 }
 
 @Composable

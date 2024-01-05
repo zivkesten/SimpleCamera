@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.screens
+package com.zivkesten.simplecamera.presentation.screens
 
 import androidx.camera.core.CameraSelector
 import androidx.compose.runtime.Composable
@@ -7,13 +7,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.zivkesten.simplecamera.camera.CameraSurface
 import com.zivkesten.simplecamera.camera.rememberCameraSurfaceHelper
-import com.zivkesten.simplecamera.state.PhotoCollectionUiElementState
+import com.zivkesten.simplecamera.presentation.state.CameraUiElementState
 
 internal const val CONTROLLER_SIZE: Float = 160f
 
 @Composable
 fun MainScreen(
-    uiElementState: PhotoCollectionUiElementState,
+    uiElementState: CameraUiElementState,
 ) {
 
     val cameraSurfaceHelper = rememberCameraSurfaceHelper(

@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.event
+package com.zivkesten.simplecamera.presentation.event
 
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 

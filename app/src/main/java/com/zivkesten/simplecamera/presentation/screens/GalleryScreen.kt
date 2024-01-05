@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.screens
+package com.zivkesten.simplecamera.presentation.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -24,20 +24,20 @@ import androidx.compose.ui.graphics.graphicsLayer
 import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsColumn
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsRow
-import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.camera.controller.CameraController
 import com.zivkesten.simplecamera.camera.controller.cameraControllerAlignment
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.camera.preview.ImagePreview
-import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.zivkesten.simplecamera.isLandscape
-import com.zivkesten.simplecamera.isPortrait
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.utils.isLandscape
+import com.zivkesten.simplecamera.utils.isPortrait
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PhotoCollectionGalleryScreen(
+fun GalleryScreen(
     uiElementState: CameraControllerUiElementState,
     boxSize: Float,
 ) {

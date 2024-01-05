@@ -53,13 +53,14 @@ android {
 }
 
 dependencies {
-
-    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
-    implementation("androidx.camera:camera-view:1.3.1")
-    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    // Core libraries
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.21")
+
+    // Compose libraries
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-util")
@@ -67,19 +68,24 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.21")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // CameraX libraries
+    implementation("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+    implementation("androidx.camera:camera-core:1.3.1")
+
+    // Lifecycle libraries
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.8.2")
 
-    // Camera
-    implementation ("androidx.camera:camera-camera2:1.3.1")
-    implementation ("androidx.camera:camera-lifecycle:1.3.1")
+    // Image loading
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
+    // Permissions library
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
 
-    // Retrofit
+    // Networking with Retrofit and OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
@@ -88,26 +94,25 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
-    // Hilt for Dependency Injection
+    // Dependency Injection with Hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.camera:camera-core:1.3.1")
     kapt("com.google.dagger:hilt-compiler:2.50")
 
-    // For instrumentation tests
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:2.50")
-
-    // For local unit tests
+    // Testing libraries
+    // Unit tests
+    testImplementation("junit:junit:4.13.2")
     testImplementation("com.google.dagger:hilt-android-testing:2.50")
     kaptTest("com.google.dagger:hilt-compiler:2.50")
 
-
-
-    testImplementation("junit:junit:4.13.2")
+    // Android tests
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.50")
+
+    // Debugging libraries
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

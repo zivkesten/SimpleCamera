@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.ui.animations
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi

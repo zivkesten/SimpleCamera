@@ -23,15 +23,15 @@ import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.CenterBu
 import com.zivkesten.simplecamera.camera.controller.buttons.ContinueButton
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.EndButton
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.StartButton
-import com.zivkesten.simplecamera.ButtonAnimation
-import com.zivkesten.simplecamera.EnterAnimation
-import com.zivkesten.simplecamera.RotateToPosition
-import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.camera.controller.thumbnails.ButtonAnimation
+import com.zivkesten.simplecamera.ui.animations.EnterAnimation
+import com.zivkesten.simplecamera.ui.RotateToPosition
+import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.zivkesten.simplecamera.initialPosition
-import com.zivkesten.simplecamera.isLandscape
-import com.zivkesten.simplecamera.isPortrait
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.utils.initialPosition
+import com.zivkesten.simplecamera.utils.isLandscape
+import com.zivkesten.simplecamera.utils.isPortrait
 
 @Composable
 fun CameraController(

@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.presentation.viewmodel
 
 import android.net.Uri
 import android.util.Log
@@ -7,10 +7,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zivkesten.simplecamera.utils.OrientationData
+import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.model.copy
-import com.zivkesten.simplecamera.state.PhotoCollectionUiState
-import com.zivkesten.simplecamera.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.state.CameraUiState
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,10 +25,11 @@ import javax.inject.Inject
 @HiltViewModel
 class CameraViewModel @Inject constructor(): ViewModel() {
 
-    private val TAG: String = "PhotoCollectionViewModel"
-    val uiState: MutableStateFlow<PhotoCollectionUiState> = MutableStateFlow(PhotoCollectionUiState(
-        0, false, emptyList()
-    ))
+    val cameraUiState: MutableStateFlow<CameraUiState> = MutableStateFlow(
+        CameraUiState(
+            0, false, emptyList()
+        )
+    )
 
 
     val imageTakenUri: Uri? get() = imageList.firstOrNull()?.uri
@@ -73,7 +76,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
 
     private fun setItemSelected(item: ImageData) {
         selectedImage = item.uri
-        uiState.mutable().value = uiState.value.copy(
+        cameraUiState.mutable().value = cameraUiState.value.copy(
             takenImages = imageList.copy(item.uri)
         )
     }
@@ -84,7 +87,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
     private fun thumbnailClicked(item: ImageData) {
         selectedImage = item.uri
         clearPreviousOrientationData()
-        uiState.mutable().value = uiState.value.copy(
+        cameraUiState.mutable().value = cameraUiState.value.copy(
             step = GALLERY,
             takenImages = imageList.copy(
                 imageList.firstOrNull()?.uri
@@ -99,7 +102,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
     private fun retakeImage() {
         imageList.removeLast()
         clearPreviousOrientationData()
-        uiState.mutable().value = uiState.value.copy(
+        cameraUiState.mutable().value = cameraUiState.value.copy(
             step = CAMERA,
             isSavingImage = false,
             takenImages = imageList.copy(selectedImage)
@@ -109,7 +112,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
     private fun saveImage(image: ImageData) {
         imageList.add(image)
         clearPreviousOrientationData()
-        uiState.mutable().value = uiState.value.copy(
+        cameraUiState.mutable().value = cameraUiState.value.copy(
             step = CAMERA,
             isSavingImage = false,
             takenImages = imageList.copy(selectedImage)
@@ -120,7 +123,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
     }
 
     fun setIsSavingImage() {
-        uiState.mutable().value = uiState.value.copy(isSavingImage = true)
+        cameraUiState.mutable().value = cameraUiState.value.copy(isSavingImage = true)
     }
 
 
@@ -152,7 +155,7 @@ class CameraViewModel @Inject constructor(): ViewModel() {
         val takenImages = imageList.copy(scrollTo)
 
         // Emit a new ui state
-        uiState.mutable().value = uiState.value.copy(
+        cameraUiState.mutable().value = cameraUiState.value.copy(
             takenImages = takenImages
         )
     }

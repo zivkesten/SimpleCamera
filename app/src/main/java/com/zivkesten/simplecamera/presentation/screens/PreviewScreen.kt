@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.screens
+package com.zivkesten.simplecamera.presentation.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElem
 import com.zivkesten.simplecamera.camera.preview.ImagePreview
 
 @Composable
-fun PhotoCollectionPreviewScreen(
+fun PreviewScreen(
     uiElementState: CameraControllerUiElementState,
     boxSize: Float = 160f
 ) {

@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
-import com.zivkesten.simplecamera.Rotation
-import com.zivkesten.simplecamera.screens.CONTROLLER_SIZE
+import com.zivkesten.simplecamera.utils.Rotation
+import com.zivkesten.simplecamera.presentation.screens.CONTROLLER_SIZE
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 

@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.dp
 import com.zivkesten.simpleCamera.R
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.scaleIn
-import com.zivkesten.simplecamera.ButtonAnimation
-import com.zivkesten.simplecamera.CameraViewModel
-import com.zivkesten.simplecamera.EnterAnimation
-import com.zivkesten.simplecamera.RotateToPosition
+import com.zivkesten.simplecamera.camera.controller.thumbnails.ButtonAnimation
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
+import com.zivkesten.simplecamera.ui.animations.EnterAnimation
+import com.zivkesten.simplecamera.ui.RotateToPosition
 import com.zivkesten.simplecamera.camera.controller.AsComposable
 import com.zivkesten.simplecamera.camera.controller.buttons.CameraControllerThumbnail
-import com.zivkesten.simplecamera.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

@@ -24,9 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.zivkesten.simpleCamera.R
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.zivkesten.simplecamera.screens.CONTROLLER_SIZE
-import com.zivkesten.simplecamera.SlideDownEnterAnimation
+import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.screens.CONTROLLER_SIZE
+import com.zivkesten.simplecamera.ui.animations.SlideDownEnterAnimation
 
 typealias OnFlashClicked = () -> Unit
 typealias OnExitClicked = () -> Unit

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.zivkesten.simplecamera.ui.CoilImageComponent
 
 @Composable
 fun ImagePreview(
@@ -19,17 +20,8 @@ fun ImagePreview(
     ) {
 
         // TODO: Coil image
-//        GlideImage(
-//            contentDescription = null,
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .align(Alignment.Center),
-//            model = model,
-//            contentScale = if (isLandscape()) ContentScale.FillHeight else ContentScale.FillWidth,
-//
-//        ) {
-//            it.placeholder(CircularProgressDrawable(ContextProvider.getApplicationContext()))
-//        }
-
+        CoilImageComponent(
+            model
+        )
     }
 }

@@ -19,11 +19,11 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.zivkesten.simplecamera.OnThumbnailSelected
-import com.zivkesten.simplecamera.Thumbnail
+import com.zivkesten.simplecamera.camera.controller.thumbnails.OnThumbnailSelected
+import com.zivkesten.simplecamera.camera.controller.thumbnails.Thumbnail
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.thumbnailExitAnimation
-import com.zivkesten.simplecamera.isPortrait
+import com.zivkesten.simplecamera.utils.isPortrait
 import kotlinx.coroutines.flow.filterNotNull
 
 @Composable

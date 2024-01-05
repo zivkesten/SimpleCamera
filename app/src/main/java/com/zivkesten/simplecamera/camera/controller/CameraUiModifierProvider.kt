@@ -6,9 +6,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
-import com.zivkesten.simplecamera.Rotation
-import com.zivkesten.simplecamera.isLandscape
-import com.zivkesten.simplecamera.isPortrait
+import com.zivkesten.simplecamera.utils.Rotation
+import com.zivkesten.simplecamera.utils.isLandscape
+import com.zivkesten.simplecamera.utils.isPortrait
 
 // Camera top bar
 internal fun Modifier.cameraTopBarPadding(rotation: Rotation, boxSize: Float) = composed {

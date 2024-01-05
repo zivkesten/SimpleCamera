@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.utils
 
 import android.content.res.Configuration
 import android.view.Surface

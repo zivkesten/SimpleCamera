@@ -3,8 +3,8 @@ package com.zivkesten.simplecamera.camera.controller.buttons
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.zivkesten.simplecamera.RotateToPosition
-import com.zivkesten.simplecamera.Thumbnail
+import com.zivkesten.simplecamera.ui.RotateToPosition
+import com.zivkesten.simplecamera.camera.controller.thumbnails.Thumbnail
 import com.zivkesten.simplecamera.camera.controller.defaultTransition
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.scaleIn

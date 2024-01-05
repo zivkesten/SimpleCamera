@@ -10,10 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnails.ThumbnailList
-import com.zivkesten.simplecamera.AnimateTo
-import com.zivkesten.simplecamera.OnThumbnailSelected
-import com.zivkesten.simplecamera.Rotation
-import com.zivkesten.simplecamera.SlideInEnterAnimation
+import com.zivkesten.simplecamera.ui.animations.AnimateTo
+import com.zivkesten.simplecamera.utils.Rotation
+import com.zivkesten.simplecamera.ui.animations.SlideInEnterAnimation
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 

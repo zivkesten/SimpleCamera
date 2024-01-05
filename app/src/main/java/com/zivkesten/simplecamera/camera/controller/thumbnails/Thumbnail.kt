@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.camera.controller.thumbnails
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.zivkesten.simplecamera.ui.animations.EnterAnimation
 import com.zivkesten.simplecamera.camera.controller.badgeTransition
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 

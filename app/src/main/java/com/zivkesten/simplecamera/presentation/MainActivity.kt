@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.presentation
 
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +13,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.zivkesten.simplecamera.screens.MainScreen
-import com.zivkesten.simplecamera.state.rememberPhotoCollectionUiElementState
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
+import com.zivkesten.simplecamera.utils.hideNavigationBar
+import com.zivkesten.simplecamera.utils.hideStatusBar
+import com.zivkesten.simplecamera.presentation.screens.MainScreen
+import com.zivkesten.simplecamera.presentation.state.rememberCameraUiElementState
+import com.zivkesten.simplecamera.utils.toSensorOrientation
 import com.zivkesten.simplecamera.ui.theme.SimpleCameraTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
                 if (cameraPermissionState.status.isGranted) {
                     MainScreen(
-                        rememberPhotoCollectionUiElementState(
+                        rememberCameraUiElementState(
                             this,
                             viewModel = viewModel,
                             onFlowComplete = {

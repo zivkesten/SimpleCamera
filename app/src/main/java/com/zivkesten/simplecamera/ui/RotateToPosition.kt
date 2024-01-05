@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.ui
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.Spring
