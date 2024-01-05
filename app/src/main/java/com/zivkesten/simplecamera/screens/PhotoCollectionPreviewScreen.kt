@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.zivkesten.simplecamera.camera.controller.CameraController
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.cameraSurfacePadding
+import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.camera.preview.ImagePreview
 

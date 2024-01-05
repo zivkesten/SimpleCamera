@@ -21,12 +21,12 @@ import androidx.compose.ui.util.lerp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import com.zivkesten.simplecamera.camera.controller.CameraControllerAlignment
 import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsColumn
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsRow
 import com.zivkesten.simplecamera.Rotation
 import com.zivkesten.simplecamera.camera.controller.CameraController
+import com.zivkesten.simplecamera.camera.controller.cameraControllerAlignment
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.camera.preview.ImagePreview
@@ -104,7 +104,7 @@ fun PhotoCollectionGalleryScreen(
                                         uiElementState
                                             .orientationParams
                                             .sensorOrientation
-                                            .CameraControllerAlignment()
+                                            .cameraControllerAlignment()
                                     )
                                 },
                             )
@@ -123,7 +123,7 @@ fun PhotoCollectionGalleryScreen(
                                         uiElementState
                                             .orientationParams
                                             .sensorOrientation
-                                            .CameraControllerAlignment()
+                                            .cameraControllerAlignment()
                                     )
                                 },
                             )
