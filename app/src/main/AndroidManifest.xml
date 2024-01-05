@@ -23,6 +23,8 @@
         <activity
             android:name="com.zivkesten.simplecamera.MainActivity"
             android:exported="true"
+            android:configChanges="screenLayout|screenSize|orientation"
+            android:rotationAnimation="seamless"
             android:theme="@style/Theme.SimpleCamera">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
