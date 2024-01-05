@@ -1,8 +1,6 @@
 package com.zivkesten.simplecamera.state
 
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.net.Uri
 import android.util.Log
 import androidx.camera.core.AspectRatio.RATIO_16_9
@@ -224,10 +222,4 @@ fun rememberPhotoCollectionUiElementState(
         viewModel,
         onFlowComplete
     )
-}
-
-
-tailrec fun Context?.activity(): Activity? = when (this) {
-    is Activity -> this
-    else -> (this as? ContextWrapper)?.baseContext?.activity()
 }
