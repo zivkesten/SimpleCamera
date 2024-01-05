@@ -7,63 +7,25 @@ import android.view.Surface
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.core.view.WindowCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
-import com.zivkesten.simplecamera.utils.hideNavigationBar
-import com.zivkesten.simplecamera.utils.hideStatusBar
-import com.zivkesten.simplecamera.presentation.screens.MainScreen
 import com.zivkesten.simplecamera.presentation.state.rememberCameraUiElementState
-import com.zivkesten.simplecamera.utils.toSensorOrientation
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
+import com.zivkesten.simplecamera.ui.screens.MainScreen
+import com.zivkesten.simplecamera.ui.screens.PermissionRequestScreen
 import com.zivkesten.simplecamera.ui.theme.SimpleCameraTheme
+import com.zivkesten.simplecamera.utils.hideSystemUI
+import com.zivkesten.simplecamera.utils.onGlobalLayout
+import com.zivkesten.simplecamera.utils.toSensorOrientation
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     val viewModel: CameraViewModel by viewModels()
-
-    @OptIn(ExperimentalPermissionsApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        hideStatusBar(this)
-        hideNavigationBar(this)
-        setContent {
-            SimpleCameraTheme {
-                // A surface container using the 'background' color from the theme
-                val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
-                val coroutineScope = rememberCoroutineScope()
-
-                if (cameraPermissionState.status.isGranted) {
-                    MainScreen(
-                        rememberCameraUiElementState(
-                            this,
-                            viewModel = viewModel,
-                            onFlowComplete = {
-                                Log.d("Zivi", "finish")
-                            }
-                        ),
-                    )
-                } else {
-                    // Show a UI element that requests the permission
-                    // For example, a Button that when clicked calls cameraPermissionState.launchPermissionRequest
-                    Button(onClick = {
-                        coroutineScope.launch {
-                            cameraPermissionState.launchPermissionRequest()
-                        }
-                    }) {
-                        Text("Request Camera Permission")
-                    }
-                }
-            }
-        }
-    }
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(this) {
@@ -82,9 +44,41 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalPermissionsApi::class)
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent {
+            SimpleCameraTheme {
+                val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+                val coroutineScope = rememberCoroutineScope()
+
+                if (cameraPermissionState.status.isGranted) {
+                    val uiElementState = rememberCameraUiElementState(
+                        this,
+                        viewModel = viewModel,
+                        onFlowComplete = {
+                            Log.d("Zivi", "finish")
+                        }
+                    )
+                    MainScreen(uiElementState)
+                } else {
+                    PermissionRequestScreen(coroutineScope, cameraPermissionState)
+                }
+            }
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         orientationEventListener.enable()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onGlobalLayout { hideSystemUI() }
     }
 
     override fun onStop() {
@@ -92,8 +86,9 @@ class MainActivity : ComponentActivity() {
         orientationEventListener.disable()
     }
 
-    companion object {
 
+
+    companion object {
         private val Q1_RANGE = 45 until 135
         private val Q2_RANGE = 135 until 225
         private val Q3_RANGE = 225 until 315

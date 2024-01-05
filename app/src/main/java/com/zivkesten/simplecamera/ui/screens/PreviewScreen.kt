@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.presentation.screens
+package com.zivkesten.simplecamera.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

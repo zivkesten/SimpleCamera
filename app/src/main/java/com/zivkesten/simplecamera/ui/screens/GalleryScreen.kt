@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera.presentation.screens
+package com.zivkesten.simplecamera.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
