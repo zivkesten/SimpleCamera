@@ -12,7 +12,7 @@ import com.zivkesten.simplecamera.utils.OrientationData
 import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.utils.initialPosition
 
-class CameraControllerUiElementState(
+data class CameraControllerUiElementState(
     val step: Int,
     val shutterButtonState: ShutterButtonState = ShutterButtonState.ENABLED,
     val imagesParams: ImagesParams,

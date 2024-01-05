@@ -7,6 +7,7 @@ import android.view.Surface
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.view.WindowCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -54,16 +55,16 @@ class MainActivity : ComponentActivity() {
             SimpleCameraTheme {
                 val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
                 val coroutineScope = rememberCoroutineScope()
-
+                val uiState = viewModel.cameraUiState
                 if (cameraPermissionState.status.isGranted) {
-                    val uiElementState = rememberCameraUiElementState(
-                        this,
-                        viewModel = viewModel,
-                        onFlowComplete = {
-                            Log.d("Zivi", "finish")
-                        }
-                    )
-                    MainScreen(uiElementState)
+//                    val uiElementState = rememberCameraUiElementState(
+//                        this,
+//                        viewModel = viewModel,
+//                        onFlowComplete = {
+//                            Log.d("Zivi", "finish")
+//                        }
+//                    )
+                    MainScreen(uiState.collectAsState().value, viewModel.imageCapture)
                 } else {
                     PermissionRequestScreen(coroutineScope, cameraPermissionState)
                 }

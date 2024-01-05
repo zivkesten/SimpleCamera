@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,12 +33,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_LOADING_TAG
 import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_OVERLAY_TAG
 import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_TAG
 import com.zivkesten.simplecamera.camera.controller.scaleIn
+import com.zivkesten.simplecamera.ui.components.LoadingIndicator
 
 @Preview
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedShutterButton(
     modifier: Modifier = Modifier,
@@ -45,7 +47,7 @@ fun AnimatedShutterButton(
     shutterButtonState: ShutterButtonState = ShutterButtonState.ENABLED,
     onClick: (() -> Unit)? = {}
 ) {
-    var scale by remember { mutableStateOf(1f) }
+    var scale by remember { mutableFloatStateOf(1f) }
     val animatedScale by animateFloatAsState(
         targetValue = scale,
         animationSpec = tween(100),
@@ -103,12 +105,10 @@ fun AnimatedShutterButton(
         ) {shutterButtonState ->
             when (shutterButtonState) {
                 ShutterButtonState.DISABLED -> ShutterDisableOverlay()
-                ShutterButtonState.LOADING -> {
-                    Unit
-//                    LoadingIndicator(
-//                        Modifier.testTag(SHUTTER_BUTTON_LOADING_TAG)
-//                    )
-                }
+                ShutterButtonState.LOADING -> LoadingIndicator(
+                    Modifier.testTag(SHUTTER_BUTTON_LOADING_TAG)
+                )
+
 
                 else -> Unit
             }

@@ -1,5 +1,6 @@
 package com.zivkesten.simplecamera.camera.controller.buttons
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +10,6 @@ import com.zivkesten.simplecamera.camera.controller.defaultTransition
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.scaleIn
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CameraControllerThumbnail(
     modifier: Modifier,
@@ -18,6 +18,7 @@ fun CameraControllerThumbnail(
     initialPosition: Float? = 0f,
     onClick: ((ImageData) -> Unit)? = null
 ) {
+    Log.d("Zivi", "CameraControllerThumbnail: $model")
     if (model != null) {
         RotateToPosition(
             modifier = modifier,

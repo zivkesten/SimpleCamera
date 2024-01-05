@@ -9,10 +9,11 @@ import com.zivkesten.simplecamera.camera.controller.CameraController
 import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.camera.preview.ImagePreview
+import com.zivkesten.simplecamera.presentation.state.CameraUiState
 
 @Composable
 fun PreviewScreen(
-    uiElementState: CameraControllerUiElementState,
+    cameraUiState: CameraControllerUiElementState,
     boxSize: Float = 160f
 ) {
     Box(
@@ -24,9 +25,9 @@ fun PreviewScreen(
             Modifier
                 .fillMaxSize()
                 .align(Alignment.Center)
-                .cameraSurfacePadding(uiElementState.orientationParams.sensorOrientation, boxSize),
-            uiElementState.imagesParams.selectedThumbnail,
+                .cameraSurfacePadding(cameraUiState.orientationParams.sensorOrientation, boxSize),
+            cameraUiState.imagesParams.selectedThumbnail,
         )
-        CameraController(uiElementState, boxSize)
+        CameraController(cameraUiState, boxSize)
     }
 }

@@ -23,7 +23,7 @@ fun CoilImageComponent(imageUrl: Any?) {
             builder = {
                 // Optional: Add image transformations
                 placeholder(myDrawable)
-                error(Color.Red)
+                //error(Color.Red)
             }
         ),
         contentDescription = "Coil Image",

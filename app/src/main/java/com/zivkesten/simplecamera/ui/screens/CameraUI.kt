@@ -22,29 +22,29 @@ import com.zivkesten.simplecamera.camera.controller.FlashButton
 import com.zivkesten.simplecamera.camera.controller.flashAnimationPadding
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.state.CameraUiState
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CameraUI(
-    uiElementState: CameraControllerUiElementState,
+    cameraUiState: CameraControllerUiElementState,
 ) {
     AnimatedContent(
-        targetState = uiElementState.step,
+        targetState = cameraUiState.step,
         transitionSpec = { fadeIn() togetherWith fadeOut(animationSpec = tween(delayMillis = 200)) },
         label = CONTROLLER_ANIMATED_CONTENT
     ) { targetScreen ->
         when (targetScreen) {
-            PREVIEW -> Preview(uiElementState)
-            GALLERY -> Gallery(uiElementState)
+            PREVIEW -> Preview(cameraUiState)
+            GALLERY -> Gallery(cameraUiState)
             CAMERA -> Camera(
-                uiElementState,
+                cameraUiState,
                 topBarContent = {
                     AnimatedCameraTopBar(
-                        uiElementState,
+                        cameraUiState,
                         flashContent = {
-                            FlashButton(uiElementState.imagesParams.isFlashOn) {
-                                uiElementState.onUiEvent(CameraUiEvent.FlashButtonClicked)
+                            FlashButton(cameraUiState.imagesParams.isFlashOn) {
+                                cameraUiState.onUiEvent(CameraUiEvent.FlashButtonClicked)
                             }
                         }
                     )
@@ -57,8 +57,8 @@ fun CameraUI(
 }
 
 @Composable
-fun Preview(uiElementState: CameraControllerUiElementState) {
-    PreviewScreen(uiElementState, boxSize = CONTROLLER_SIZE)
+fun Preview(cameraUiState: CameraControllerUiElementState) {
+    PreviewScreen(cameraUiState, boxSize = CONTROLLER_SIZE)
 }
 
 @Composable

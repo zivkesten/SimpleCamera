@@ -47,7 +47,6 @@ const val BADGE_TAG = "BADGE_TAG"
 const val TRASH_OVERLAY_TAG = "TRASH_OVERLAY_TAG"
 typealias OnThumbnailSelected = (ImageData) -> Unit
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Thumbnail(
     modifier: Modifier,
@@ -105,7 +104,6 @@ fun Thumbnail(
 }
 
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
 private fun ThumbnailBadge(
     modifier: Modifier,
     badgeValue: String
