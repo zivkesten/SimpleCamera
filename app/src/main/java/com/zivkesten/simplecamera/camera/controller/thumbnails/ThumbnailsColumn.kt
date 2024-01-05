@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnails
+package com.zivkesten.simplecamera.camera.controller.thumbnails
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
@@ -9,12 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import com.lemonadeinc.lemonade.ui.composable.OnThumbnailSelected
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnails.ThumbnailList
+import com.zivkesten.simplecamera.AnimateTo
+import com.zivkesten.simplecamera.OnThumbnailSelected
+import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.SlideInEnterAnimation
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.lemonadeinc.lemonade.utils.android.Rotation
-import com.lemonadeinc.ui.wrapper.AnimateTo
-import com.lemonadeinc.ui.wrapper.SlideInEnterAnimation
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

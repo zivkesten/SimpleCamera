@@ -12,9 +12,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.flashAnimationPadding
-import com.lemonadeinc.lemonade.ui.feature.photocollection.presentation.component.information.FlashAnimation
-import com.lemonadeinc.lemonade.ui.feature.photocollection.presentation.screens.PhotoCollectionGalleryScreen
+import com.zivkesten.simplecamera.camera.controller.flashAnimationPadding
+import com.zivkesten.simplecamera.FlashAnimation
 import com.zivkesten.simplecamera.CameraViewModel.Companion.CAMERA
 import com.zivkesten.simplecamera.CameraViewModel.Companion.GALLERY
 import com.zivkesten.simplecamera.CameraViewModel.Companion.PREVIEW
@@ -102,4 +101,3 @@ private const val TAG: String = "CameraUI"
 private const val FLASH_ANIMATION_DURATION = 100L
 private const val FLASH_ANIMATION_DELAY = 150L
 private const val CONTROLLER_ANIMATED_CONTENT = "CONTROLLER_ANIMATED_CONTENT"
-const val PHOTO_LIMIT_WARNING_TAG = "PHOTO_LIMIT_WARNING_TAG"

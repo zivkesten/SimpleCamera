@@ -1,6 +1,4 @@
-@file:Suppress("TooManyFunctions")
-
-package com.lemonadeinc.lemonade.ui.composable.camera.controller
+package com.zivkesten.simplecamera.camera.controller
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -8,9 +6,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.lemonade.utils.android.Rotation
-import com.lemonadeinc.lemonade.utils.android.isLandscape
-import com.lemonadeinc.lemonade.utils.android.isPortrait
+import com.zivkesten.simplecamera.Rotation
+import com.zivkesten.simplecamera.isLandscape
+import com.zivkesten.simplecamera.isPortrait
 
 // Camera top bar
 internal fun Modifier.cameraTopBarPadding(rotation: Rotation, boxSize: Float) = composed {
@@ -147,7 +145,7 @@ fun Modifier.cameraSurfacePadding(sensorOrientation: Rotation, boxSize: Float) =
 }
 
 @Composable
-fun Rotation.CameraControllerAlignment() = when (this) {
+fun Rotation.cameraControllerAlignment() = when (this) {
     Rotation.ROTATION_0 -> if (isLandscape()) Alignment.CenterEnd else Alignment.BottomCenter
     Rotation.ROTATION_90 -> if (isPortrait()) Alignment.BottomCenter else Alignment.CenterEnd
     Rotation.ROTATION_180 -> if (isLandscape()) Alignment.CenterEnd else Alignment.TopCenter

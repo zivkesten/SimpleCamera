@@ -5,22 +5,25 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.net.Uri
 import android.util.Log
+import androidx.camera.core.AspectRatio
 import androidx.camera.core.AspectRatio.RATIO_16_9
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.resolutionselector.AspectRatioStrategy
+import androidx.camera.core.resolutionselector.AspectRatioStrategy.FALLBACK_RULE_AUTO
+import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.viewModelScope
 import com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons.ShutterButtonState
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.zivkesten.simpleCamera.R
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.OrientationData
 import com.zivkesten.simplecamera.CameraViewModel
-import com.zivkesten.simplecamera.R
 import com.zivkesten.simplecamera.Rotation
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.event.CameraUiEvent
@@ -41,9 +44,13 @@ class PhotoCollectionUiElementState(
     private val onFlowComplete: (List<String>) -> Unit
 ) {
 
-    val imageCapture: ImageCapture = ImageCapture.Builder().setTargetAspectRatio(RATIO_16_9).build()
+    private val resolutionSelector = ResolutionSelector.Builder()
+        .setAspectRatioStrategy(AspectRatioStrategy(RATIO_16_9, FALLBACK_RULE_AUTO) )
+        .build()
 
-    val orientationData: OrientationData get() = viewModel.orientationData
+    val imageCapture: ImageCapture = ImageCapture.Builder().setResolutionSelector(resolutionSelector).build()
+
+    private val orientationData: OrientationData get() = viewModel.orientationData
 
     val sensorOrientation: Rotation
         get() = viewModel.sensorOrientation.value
@@ -192,8 +199,6 @@ class PhotoCollectionUiElementState(
                 File(it, activity.resources.getString(R.string.app_name)).apply { mkdirs() }
             }
             return if (mediaDir != null && mediaDir.exists()) mediaDir else activity.filesDir
-
-            return null
         }
         var file: File? = null
         try {

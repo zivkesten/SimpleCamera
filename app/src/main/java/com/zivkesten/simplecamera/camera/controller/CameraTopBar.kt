@@ -16,17 +16,16 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.cameraTopBarPadding
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.scaleIn
+import com.zivkesten.simpleCamera.R
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.event.CameraUiEvent
 import com.zivkesten.simplecamera.screens.CONTROLLER_SIZE
-import com.zivkesten.simplecamera.R
 import com.zivkesten.simplecamera.SlideDownEnterAnimation
 
 typealias OnFlashClicked = () -> Unit
@@ -104,7 +103,7 @@ fun FlashButton(
             modifier = Modifier
                 .wrapContentSize()
                 .clickable(
-                    interactionSource = MutableInteractionSource(),
+                    interactionSource = remember { MutableInteractionSource() } ,
                     indication = null
                 ) {
                     onFlashClicked()
@@ -121,7 +120,7 @@ private fun ExitButton(onClick: () -> Unit) {
         modifier = Modifier
             .size(30.dp)
             .clickable(
-                interactionSource = MutableInteractionSource(),
+                interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = false),
                 onClick = onClick
             )

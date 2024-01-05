@@ -1,6 +1,6 @@
 package com.zivkesten.simplecamera.event
 
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 
 sealed interface CameraUiEvent {
     object FlashButtonClicked : CameraUiEvent

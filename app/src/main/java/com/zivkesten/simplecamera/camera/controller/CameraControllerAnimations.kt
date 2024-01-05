@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller
+package com.zivkesten.simplecamera.camera.controller
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Spring
@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.ui.Alignment
 
@@ -37,9 +38,9 @@ val thumbnailExitAnimation = fadeOut(tween(THUMBNAIL_FADE_ANIMATION_DURATION)) +
 @OptIn(ExperimentalAnimationApi::class)
 val defaultTransition = scaleIn(
     animationSpec = tween(SCALE_IN_DEFAULT_ANIMATION_DURATION)
-) with fadeOut(animationSpec = tween(FADE_OUT_DEFAULT_ANIMATION_DURATION))
+) togetherWith fadeOut(animationSpec = tween(FADE_OUT_DEFAULT_ANIMATION_DURATION))
 
 @OptIn(ExperimentalAnimationApi::class)
 val badgeTransition = scaleIn(
     animationSpec = tween(SCALE_IN_ANIMATION_DURATION)
-) with fadeOut(animationSpec = tween(FADE_OUT_ANIMATION_DURATION))
+) togetherWith fadeOut(animationSpec = tween(FADE_OUT_ANIMATION_DURATION))

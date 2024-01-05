@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.feature.photocollection.presentation.component.information
+package com.zivkesten.simplecamera
 
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -14,10 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.common.utils.android.ContextProvider
-import com.lemonadeinc.lemonade.di.entryPoints.ApplicationEntryPoints
-import com.lemonadeinc.lemonade.managers.SoundManager
-import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.delay
 
 private const val FLASH_ANIMATION_DURATION = 100
@@ -49,12 +45,13 @@ fun FlashAnimation(
             .height(200.dp)
     ) {
         LaunchedEffect(Unit) {
-            val soundManager = EntryPointAccessors
-                .fromApplication(
-                    ContextProvider.getApplicationContext(),
-                    ApplicationEntryPoints::class.java
-                ).getSoundManager()
-            soundManager.playSound(SoundManager.CAMERA_SHUTTER)
+            // TODO: Play Sound
+//            val soundManager = EntryPointAccessors
+//                .fromApplication(
+//                    ContextProvider.getApplicationContext(),
+//                    ApplicationEntryPoints::class.java
+//                ).getSoundManager()
+//            soundManager.playSound(SoundManager.CAMERA_SHUTTER)
         }
     }
 }

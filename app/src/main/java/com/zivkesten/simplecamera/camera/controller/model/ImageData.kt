@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller.model
+package com.zivkesten.simplecamera.camera.controller.model
 
 import android.net.Uri
 import androidx.compose.animation.core.MutableTransitionState

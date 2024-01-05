@@ -1,6 +1,6 @@
 package com.zivkesten.simplecamera.state
 
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 
 data class PhotoCollectionUiState(
     val step: Int = 0,

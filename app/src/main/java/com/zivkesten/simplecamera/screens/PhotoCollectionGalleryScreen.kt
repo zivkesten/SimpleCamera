@@ -1,4 +1,4 @@
-package com.lemonadeinc.lemonade.ui.feature.photocollection.presentation.screens
+package com.zivkesten.simplecamera.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -17,24 +17,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.util.lerp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.util.lerp
-import com.lemonadeinc.common.utils.extension.reverseIndexFrom
+import com.zivkesten.simplecamera.camera.controller.CameraControllerAlignment
+import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
+import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsColumn
+import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsRow
+import com.zivkesten.simplecamera.Rotation
 import com.zivkesten.simplecamera.camera.controller.CameraController
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.CameraControllerAlignment
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.cameraSurfacePadding
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnails.ThumbnailsColumn
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnails.ThumbnailsRow
-import com.lemonadeinc.lemonade.ui.composable.camera.preview.ImagePreview
+import com.zivkesten.simplecamera.camera.preview.ImagePreview
 import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.lemonadeinc.lemonade.utils.android.Rotation
-import com.lemonadeinc.lemonade.utils.android.isLandscape
-import com.lemonadeinc.lemonade.utils.android.isPortrait
-import com.zivkesten.simplecamera.screens.CONTROLLER_SIZE
+import com.zivkesten.simplecamera.isLandscape
+import com.zivkesten.simplecamera.isPortrait
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -164,7 +162,7 @@ private fun OrientationAwareSlidingPagerImage(
 @Composable
 private fun ThumbnailColumnWithAlignment(params: ThumbnailsListParams) {
     ThumbnailsColumn(
-        Modifier.Companion
+        Modifier
             .then(params.modifier)
             .cameraSurfacePadding(
                 params.uiElementState.orientationParams.sensorOrientation,
@@ -245,3 +243,6 @@ data class ThumbnailsListParams(
     val boxSize: Float,
     val listState: LazyListState,
 )
+
+
+fun Int.reverseIndexFrom(listSize: Int) = listSize - this - 1

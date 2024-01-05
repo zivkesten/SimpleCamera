@@ -9,15 +9,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.zivkesten.simplecamera.screens.PhotoCollectionMainScreen
+import com.zivkesten.simplecamera.screens.MainScreen
 import com.zivkesten.simplecamera.state.rememberPhotoCollectionUiElementState
 import com.zivkesten.simplecamera.ui.theme.SimpleCameraTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +38,7 @@ class MainActivity : ComponentActivity() {
 
                 if (cameraPermissionState.status.isGranted) {
                     val uiState by viewModel.uiState.collectAsState()
-                    PhotoCollectionMainScreen(
-                        uiState,
+                    MainScreen(
                         rememberPhotoCollectionUiElementState(
                             this,
                             viewModel = viewModel,

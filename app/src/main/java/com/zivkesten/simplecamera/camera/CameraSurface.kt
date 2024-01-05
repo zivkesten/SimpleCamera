@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.camera
 
 import android.content.Context
 import androidx.camera.core.ImageCapture
@@ -13,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.cameraSurfacePadding
+import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
+import com.zivkesten.simplecamera.Rotation
 import com.zivkesten.simplecamera.screens.CONTROLLER_SIZE
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine

@@ -19,11 +19,11 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.lemonade.ui.composable.OnThumbnailSelected
-import com.lemonadeinc.lemonade.ui.composable.Thumbnail
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.thumbnailExitAnimation
-import com.lemonadeinc.lemonade.utils.android.isPortrait
+import com.zivkesten.simplecamera.OnThumbnailSelected
+import com.zivkesten.simplecamera.Thumbnail
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.thumbnailExitAnimation
+import com.zivkesten.simplecamera.isPortrait
 import kotlinx.coroutines.flow.filterNotNull
 
 @Composable

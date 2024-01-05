@@ -9,24 +9,24 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.lemonadeinc.lemonade.R
-import com.lemonadeinc.lemonade.ui.composable.ButtonAnimation
-import com.zivkesten.simplecamera.camera.controller.AsComposable
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.scaleIn
+import com.zivkesten.simpleCamera.R
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.scaleIn
+import com.zivkesten.simplecamera.ButtonAnimation
 import com.zivkesten.simplecamera.CameraViewModel
+import com.zivkesten.simplecamera.EnterAnimation
+import com.zivkesten.simplecamera.RotateToPosition
+import com.zivkesten.simplecamera.camera.controller.AsComposable
+import com.zivkesten.simplecamera.camera.controller.buttons.CameraControllerThumbnail
 import com.zivkesten.simplecamera.event.CameraUiEvent
-import com.lemonadeinc.ui.wrapper.EnterAnimation
-import com.lemonadeinc.ui.wrapper.RotateToPosition
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -87,7 +87,7 @@ fun StartButton(
         ) {
             RotatableButton(
                 Modifier,
-                R.drawable.retake,
+                R.drawable.flash_off,
                 initialPosition ?: 0f,
             ) {
                 onClick(CameraUiEvent.RetakePhoto)
@@ -100,7 +100,7 @@ fun StartButton(
         ) {
             RotatableButton(
                 Modifier,
-                R.drawable.ic_white_left_arrow_without_tail,
+                R.drawable.flash_on,
                 initialPosition ?: 0f,
             ) {
                 onClick(CameraUiEvent.RetakePhoto)
@@ -126,7 +126,7 @@ private fun RotatableButton(
         IconButton(
             onClick = { onClick?.invoke() },
             modifier = Modifier
-                .background(colorResource(id = R.color.lemonade_night), CircleShape)
+                .background(Color.Black, CircleShape)
                 .size(56.dp)
         ) {
             Icon(

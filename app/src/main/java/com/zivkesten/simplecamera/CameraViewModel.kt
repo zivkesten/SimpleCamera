@@ -5,13 +5,10 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.copy
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.model.copy
 import com.zivkesten.simplecamera.state.PhotoCollectionUiState
 import com.zivkesten.simplecamera.event.CameraUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

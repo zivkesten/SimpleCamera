@@ -32,11 +32,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_LOADING_TAG
 import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_OVERLAY_TAG
 import com.zivkesten.simplecamera.camera.controller.SHUTTER_BUTTON_TAG
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.scaleIn
-import com.lemonadeinc.ui.component.LoadingIndicator
+import com.zivkesten.simplecamera.camera.controller.scaleIn
 
 @Preview
 @OptIn(ExperimentalAnimationApi::class)
@@ -102,12 +100,15 @@ fun AnimatedShutterButton(
             targetState = shutterButtonState,
             transitionSpec = { fadeIn() with fadeOut() },
             label = "AnimatedShutterButton shutterButtonState"
-        ) {
+        ) {shutterButtonState ->
             when (shutterButtonState) {
                 ShutterButtonState.DISABLED -> ShutterDisableOverlay()
-                ShutterButtonState.LOADING -> LoadingIndicator(
-                    Modifier.testTag(SHUTTER_BUTTON_LOADING_TAG)
-                )
+                ShutterButtonState.LOADING -> {
+                    Unit
+//                    LoadingIndicator(
+//                        Modifier.testTag(SHUTTER_BUTTON_LOADING_TAG)
+//                    )
+                }
 
                 else -> Unit
             }

@@ -1,4 +1,4 @@
-package com.zivkesten.simplecamera
+package com.zivkesten.simplecamera.camera
 
 import android.content.Context
 import androidx.camera.core.CameraSelector
@@ -19,7 +19,6 @@ class CameraSurfaceHelper(
         .requireLensFacing(lensFacing)
         .build()
 
-    val interactionSource = MutableInteractionSource()
     val previewView = PreviewView(context)
 }
 

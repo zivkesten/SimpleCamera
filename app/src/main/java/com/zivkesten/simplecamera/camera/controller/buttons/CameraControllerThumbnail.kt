@@ -1,13 +1,13 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons
+package com.zivkesten.simplecamera.camera.controller.buttons
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.lemonadeinc.lemonade.ui.composable.Thumbnail
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.defaultTransition
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.scaleIn
-import com.lemonadeinc.ui.wrapper.RotateToPosition
+import com.zivkesten.simplecamera.RotateToPosition
+import com.zivkesten.simplecamera.Thumbnail
+import com.zivkesten.simplecamera.camera.controller.defaultTransition
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.scaleIn
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

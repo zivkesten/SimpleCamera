@@ -36,8 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.badgeTransition
-import com.lemonadeinc.lemonade.ui.composable.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.camera.controller.badgeTransition
+import com.zivkesten.simplecamera.camera.controller.model.ImageData
 
 const val ANIMATED_THUMBNAIL_TAG = "ANIMATED_THUMBNAIL"
 const val NON_ANIMATED_THUMBNAIL_TAG = "NON_ANIMATED_THUMBNAIL"
