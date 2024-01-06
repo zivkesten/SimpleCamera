@@ -19,28 +19,23 @@ import com.zivkesten.simplecamera.camera.controller.model.copy
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
 import com.zivkesten.simplecamera.presentation.state.CameraUiState
-import com.zivkesten.simplecamera.usecases.GetTakenPhotoUseCase
+import com.zivkesten.simplecamera.usecases.ImageCaptureUseCase
 import com.zivkesten.simplecamera.utils.OrientationData
 import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.utils.mutable
-import com.zivkesten.simplecamera.utils.toSurfaceOrientation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import java.net.URI
-import java.util.UUID
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 
-const val ERROR_SAVING_FILE = "Error saving file"
-private const val JPG_SUFFIX = ".jpg"
 
 @HiltViewModel
 class CameraViewModel @Inject constructor(
-    private val getTakenPhotoUseCase: GetTakenPhotoUseCase
+    private val imageCaptureUseCase: ImageCaptureUseCase
 ): ViewModel() {
 
     private val resolutionSelector = ResolutionSelector.Builder()
@@ -50,16 +45,17 @@ class CameraViewModel @Inject constructor(
     val imageCapture: ImageCapture = ImageCapture.Builder().setResolutionSelector(resolutionSelector).build()
 
     val imageTakenUri: Uri? get() = imageList.firstOrNull()?.uri
-    var selectedImage: Uri? by mutableStateOf(null)
     var scrollTo: Uri? by mutableStateOf(null)
-
     private val imageList = mutableListOf<ImageData>()
     private val imagesTimestamps = mutableListOf<Long>()
 
-    private val _attachmentsItem = MutableStateFlow<List<String>?>(null)
-    var attachmentsItem: StateFlow<List<String>?> = _attachmentsItem
-    var sensorOrientation = MutableStateFlow(Rotation.ROTATION_0)
+    private val _capturedImages = MutableStateFlow<List<String>?>(null)
+    var capturedImages: StateFlow<List<String>?> = _capturedImages
+
+    var selectedImage: Uri? by mutableStateOf(null)
     var orientationData by mutableStateOf(OrientationData(null, null))
+
+    var sensorOrientation = MutableStateFlow(Rotation.ROTATION_0)
 
     val cameraUiState: StateFlow<CameraUiState> = MutableStateFlow(
         CameraUiState(
@@ -79,9 +75,7 @@ class CameraViewModel @Inject constructor(
             ) { onEvent(it) }
         )
     )
-
     init {
-        observeAttachments()
         viewModelScope.launch {
             sensorOrientation.collect { currentOrientation ->
                 orientationData.previous = orientationData.current
@@ -105,11 +99,9 @@ class CameraViewModel @Inject constructor(
             }
             is CameraUiEvent.RetakePhoto -> retakeImage()
             is CameraUiEvent.ImageSaved -> saveImage(event.image)
-            is CameraUiEvent.ImageFail -> Unit// TODO: Handle
             is CameraUiEvent.ThumbnailClicked -> thumbnailClicked(event.image)
             is CameraUiEvent.ThumbnailRowItemClicked -> thumbnailRowItemClicked(event.image)
             is CameraUiEvent.PreviewImageViewed -> setItemSelected(event.image)
-            else -> Unit
         }
     }
 
@@ -131,7 +123,9 @@ class CameraViewModel @Inject constructor(
         )
         setIsSavingImage()
         Log.d("Zivi", "onImageCaptured")
-        takePhoto(
+        imageCaptureUseCase.captureImage(
+            imageCapture,
+            sensorOrientation.value,
             onImageCaptured = { uri, isFlash ->
                 Log.d("Zivi", "onImageCaptured1")
                 onEvent(
@@ -140,66 +134,16 @@ class CameraViewModel @Inject constructor(
                     )
                 )
             },
-            onErrorInvocation = { fileName: String, imageCaptureException: ImageCaptureException ->
+            onError = { fileName: String, imageCaptureException: ImageCaptureException ->
                 onEvent(CameraUiEvent.ImageFail(fileName, imageCaptureException.message))
             }
         )
     }
 
-    private fun takePhoto(
-        onImageCaptured: (Uri, Boolean) -> Unit,
-        onErrorInvocation: ((String, ImageCaptureException) -> Unit)? = null
-    ) {
-        // TODO: Handle
-        imageCapture.targetRotation = sensorOrientation.value.toSurfaceOrientation()
 
 
-        val fileName = generateTempFileName()
-        val photoFile: File? = getTakenPhotoUseCase.execute(fileName, onErrorInvocation)
 
-        if (photoFile != null) {
-            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-            imageCapture.takePicture(
-                outputOptions,
-                Executors.newSingleThreadExecutor(),
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onError(exception: ImageCaptureException) {
-                        onErrorInvocation?.invoke(fileName, exception)
-                    }
 
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        outputFileResults.savedUri?.let {
-                            onImageCaptured(
-                                it,
-                                imageCapture.flashMode == ImageCapture.FLASH_MODE_ON
-                            )
-                        }
-                    }
-                }
-            )
-        } else {
-            onErrorInvocation?.invoke(
-                fileName,
-                ImageCaptureException(ImageCapture.ERROR_FILE_IO, ERROR_SAVING_FILE, null)
-            )
-        }
-    }
-
-    fun generateTempFileName(): String {
-        val id: String = UUID.randomUUID().toString()
-        return id + JPG_SUFFIX
-    }
-
-    private fun observeAttachments() {
-        viewModelScope.launch {
-            attachmentsItem.collect { attachments ->
-                if (attachments != null) {
-                    //onFlowComplete(attachments)
-                    Log.d("Zivi", "Flow complete $attachments")
-                }
-            }
-        }
-    }
 
     private fun thumbnailRowItemClicked(item: ImageData) {
         if (item.uri == selectedImage || scrollTo == item.uri) {
@@ -294,7 +238,7 @@ class CameraViewModel @Inject constructor(
         }
 
 
-        _attachmentsItem.value = attachmentItems
+        _capturedImages.value = attachmentItems
     }
 
     private fun removeItem(removedItem: ImageData) {

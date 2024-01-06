@@ -2,9 +2,8 @@ package com.zivkesten.simplecamera.di
 
 import android.app.Application
 import android.content.Context
-import androidx.camera.core.ImageCapture
-import com.zivkesten.simplecamera.usecases.GetTakenPhotoUseCase
-import com.zivkesten.simplecamera.usecases.GetTakenPhotoUseCaseImpl
+import com.zivkesten.simplecamera.usecases.ImageCaptureUseCase
+import com.zivkesten.simplecamera.usecases.ImageCaptureUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +21,5 @@ object AppModule {
     @Provides
     fun provideTakePhotoUseCase(
         context: Context,
-    ): GetTakenPhotoUseCase = GetTakenPhotoUseCaseImpl(context)
+    ): ImageCaptureUseCase = ImageCaptureUseCaseImpl(context)
 }
