@@ -253,10 +253,10 @@ class CameraViewModel @Inject constructor(
         // Emit a new ui state
         cameraUiState.mutable().value = cameraUiState.value.copy(
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
-            imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
-                imagesTaken = takenImages
+                imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
+                    imagesTaken = takenImages
+                )
             )
-        )
         )
     }
 
