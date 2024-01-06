@@ -7,44 +7,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 
 data class OrientationData(var current: Rotation?, var previous: Rotation?)
 
-@Suppress("MagicNumber", "ComplexCondition", "CyclomaticComplexMethod")
-fun getDeviceOrientation(pitch: Double, tilt: Double): String {
-    return if (pitch in -25.0..25.0 && tilt in -45.0..45.0) {
-        Orientation.FACE_UP.value
-    } else if (((pitch < -145.0 && pitch > -180.0) || pitch in 145.0..180.0) && tilt in -45.0..45.0) {
-        Orientation.FACE_DOWN.value
-    } else if (pitch in 25.0..155.0 && tilt in -45.0..45.0) {
-        Orientation.PORTRAIT.value
-    } else if (pitch < -25.0 && pitch > -155.0 && tilt in -45.0..45.0) {
-        Orientation.PORTRAIT_UPSIDE_DOWN.value
-    } else if (tilt in 45.0..90.0) {
-        Orientation.LANDSCAPE_RIGHT.value
-    } else if (tilt < -45.0 && tilt > -90.0) {
-        Orientation.LANDSCAPE_LEFT.value
-    } else {
-        Orientation.UNKNOWN.value
-    }
-}
-
-enum class Orientation(val value: String) {
-    PORTRAIT("portrait"),
-    PORTRAIT_UPSIDE_DOWN("portrait upside down"),
-    LANDSCAPE_LEFT("landscape left"),
-    LANDSCAPE_RIGHT("landscape right"),
-    FACE_UP("face up"),
-    FACE_DOWN("face down"),
-    UNKNOWN("unknown")
-}
-
 enum class Rotation {
     ROTATION_0, ROTATION_90, ROTATION_180, ROTATION_270
-}
-
-fun Rotation.toSurfaceOrientation() = when (this) {
-    Rotation.ROTATION_0 -> Surface.ROTATION_0
-    Rotation.ROTATION_90 -> Surface.ROTATION_90
-    Rotation.ROTATION_180 -> Surface.ROTATION_180
-    Rotation.ROTATION_270 -> Surface.ROTATION_270
 }
 
 fun Int.toSensorOrientation() = when (this) {

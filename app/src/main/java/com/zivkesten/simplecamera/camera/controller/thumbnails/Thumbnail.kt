@@ -5,7 +5,6 @@ import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -22,6 +21,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -37,9 +38,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zivkesten.simplecamera.ui.animations.EnterAnimation
+import com.zivkesten.simpleCamera.R
 import com.zivkesten.simplecamera.camera.controller.badgeTransition
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
+import com.zivkesten.simplecamera.ui.CoilImageComponent
+import com.zivkesten.simplecamera.ui.animations.EnterAnimation
 
 const val ANIMATED_THUMBNAIL_TAG = "ANIMATED_THUMBNAIL"
 const val NON_ANIMATED_THUMBNAIL_TAG = "NON_ANIMATED_THUMBNAIL"
@@ -47,7 +50,6 @@ const val BADGE_TAG = "BADGE_TAG"
 const val TRASH_OVERLAY_TAG = "TRASH_OVERLAY_TAG"
 typealias OnThumbnailSelected = (ImageData) -> Unit
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Thumbnail(
     modifier: Modifier,
@@ -105,7 +107,6 @@ fun Thumbnail(
 }
 
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
 private fun ThumbnailBadge(
     modifier: Modifier,
     badgeValue: String
@@ -157,20 +158,15 @@ private fun ThumbnailImage(
             ) { onClick(model) }
             .clip(RoundedCornerShape(8.dp))
     ) {
-
-        // TODO: coil image 
-//        GlideImage(
-//            modifier = Modifier.fillMaxSize(),
-//            model = model.uri,
-//            contentDescription = null,
-//            contentScale = ContentScale.Crop,
-//        )
+        CoilImageComponent(
+            modifier = Modifier.fillMaxSize(),
+            imageUrl = model.uri
+        )
         TrashOverlay(model)
     }
 }
 
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
 private fun TrashOverlay(model: ImageData) {
     Crossfade(targetState = model.selected, label = "TrashOverlay CrossFade") { selected ->
         if (selected) {
@@ -186,15 +182,14 @@ private fun TrashOverlay(model: ImageData) {
                     modifier = Modifier.align(Alignment.Center),
                     enter = scaleIn(tween(durationMillis = 300)),
                 ) {
-                    // TODO: Trash icon 
-//                    Icon(
-//                        modifier = Modifier
-//                            .align(Alignment.Center)
-//                            .testTag(TRASH_OVERLAY_TAG),
-//                        painter = painterResource(id = R.drawable.ic_trash),
-//                        tint = Color.White,
-//                        contentDescription = ""
-//                    )
+                    Icon(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .testTag(TRASH_OVERLAY_TAG),
+                        painter = painterResource(id = R.drawable.ic_trash),
+                        tint = Color.White,
+                        contentDescription = ""
+                    )
                 }
             }
         }

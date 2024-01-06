@@ -1,8 +1,7 @@
-package com.lemonadeinc.lemonade.ui.composable.camera.controller.buttons
+package com.zivkesten.simplecamera.camera.controller.buttons
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
@@ -18,17 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.zivkesten.simpleCamera.R
+import com.zivkesten.simplecamera.camera.controller.AsComposable
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.scaleIn
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ButtonAnimation
-import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
-import com.zivkesten.simplecamera.ui.animations.EnterAnimation
-import com.zivkesten.simplecamera.ui.RotateToPosition
-import com.zivkesten.simplecamera.camera.controller.AsComposable
-import com.zivkesten.simplecamera.camera.controller.buttons.CameraControllerThumbnail
 import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
+import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
+import com.zivkesten.simplecamera.ui.RotateToPosition
+import com.zivkesten.simplecamera.ui.animations.EnterAnimation
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun EndButton(
     modifier: Modifier = Modifier,

@@ -14,13 +14,11 @@ fun ImagePreview(
 ) {
     Box(
         modifier = modifier.then(
-            Modifier
-                .background(Color.Black)
+            Modifier.background(Color.Black)
         )
     ) {
-
-        // TODO: Coil image
         CoilImageComponent(
+            Modifier,
             model
         )
     }

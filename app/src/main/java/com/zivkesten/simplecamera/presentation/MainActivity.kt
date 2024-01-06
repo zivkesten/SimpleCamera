@@ -7,12 +7,13 @@ import android.view.Surface
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.zivkesten.simplecamera.presentation.state.rememberCameraUiElementState
 import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
 import com.zivkesten.simplecamera.ui.screens.MainScreen
 import com.zivkesten.simplecamera.ui.screens.PermissionRequestScreen
@@ -21,6 +22,7 @@ import com.zivkesten.simplecamera.utils.hideSystemUI
 import com.zivkesten.simplecamera.utils.onGlobalLayout
 import com.zivkesten.simplecamera.utils.toSensorOrientation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -54,19 +56,22 @@ class MainActivity : ComponentActivity() {
             SimpleCameraTheme {
                 val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
                 val coroutineScope = rememberCoroutineScope()
-
+                val uiState = viewModel.cameraUiState
                 if (cameraPermissionState.status.isGranted) {
-                    val uiElementState = rememberCameraUiElementState(
-                        this,
-                        viewModel = viewModel,
-                        onFlowComplete = {
-                            Log.d("Zivi", "finish")
-                        }
-                    )
-                    MainScreen(uiElementState)
+                    MainScreen(uiState.collectAsState().value, viewModel.imageCapture)
                 } else {
                     PermissionRequestScreen(coroutineScope, cameraPermissionState)
                 }
+            }
+        }
+
+        collectCapturedImages()
+    }
+
+    private fun collectCapturedImages() {
+        lifecycleScope.launch {
+            viewModel.capturedImages.collect {
+                Log.d("Zivi", "collectCapturedImages: $it")
             }
         }
     }
@@ -85,8 +90,6 @@ class MainActivity : ComponentActivity() {
         super.onStop()
         orientationEventListener.disable()
     }
-
-
 
     companion object {
         private val Q1_RANGE = 45 until 135
