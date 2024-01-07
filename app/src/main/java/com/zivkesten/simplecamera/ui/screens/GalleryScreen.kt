@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
@@ -21,6 +22,7 @@ import androidx.compose.ui.util.lerp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import com.zivkesten.simplecamera.camera.controller.cameraSurfacePadding
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsColumn
 import com.zivkesten.simplecamera.camera.controller.thumbnails.ThumbnailsRow
@@ -41,11 +43,14 @@ fun GalleryScreen(
     uiElementState: CameraControllerUiElementState,
     boxSize: Float,
 ) {
+    val listState = rememberLazyListState()
+
     val pagerState = rememberPagerState {
         uiElementState.imagesParams.imagesTaken.size
     }
-    val listState = rememberLazyListState()
-    var images by remember { mutableStateOf(uiElementState.imagesParams.imagesTaken) }
+    var images by remember {
+        mutableStateOf(uiElementState.imagesParams.imagesTaken)
+    }
 
     LaunchedEffect(pagerState.currentPage) {
         listState.animateScrollToItem(
@@ -167,7 +172,7 @@ private fun ThumbnailColumnWithAlignment(params: ThumbnailsListParams) {
             .cameraSurfacePadding(
                 params.uiElementState.orientationParams.sensorOrientation,
                 params.boxSize
-            ),
+            ).padding(horizontal = 10.dp),
         params.listState,
         params.uiElementState.thumbnailsDisplayParams,
         params.uiElementState.imagesParams.imagesTaken,
@@ -186,7 +191,7 @@ private fun ThumbnailsRowWithAlignment(params: ThumbnailsListParams) {
             .cameraSurfacePadding(
                 params.uiElementState.orientationParams.sensorOrientation,
                 params.boxSize
-            ),
+            ).padding(vertical = 10.dp),
         params.listState,
         params.uiElementState.thumbnailsDisplayParams,
         params.uiElementState.imagesParams.imagesTaken,
@@ -214,9 +219,9 @@ fun SlidingPreviewImage(
                     // scroll position. We use the absolute value which allows us to mirror
                     // any effects for both directions
                     val pageOffset = (
-                        (pagerState.currentPage - pageIndex) + pagerState
-                            .currentPageOffsetFraction
-                        ).absoluteValue
+                            (pagerState.currentPage - pageIndex) + pagerState
+                                .currentPageOffsetFraction
+                            ).absoluteValue
 
                     // We animate the scale, between 70% and 100%
                     scaleX = lerp(
@@ -232,7 +237,7 @@ fun SlidingPreviewImage(
                     )
                 }
         ) {
-            ImagePreview(Modifier.fillMaxSize(), images[pageIndex].uri.path)
+            ImagePreview(Modifier.fillMaxSize(), images[pageIndex].uri)
         }
     }
 }

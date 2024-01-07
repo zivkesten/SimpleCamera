@@ -14,7 +14,6 @@ import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
 fun ThumbnailsRow(
     modifier: Modifier,
     listState: LazyListState,

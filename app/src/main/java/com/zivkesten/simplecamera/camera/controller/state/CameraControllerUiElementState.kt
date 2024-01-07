@@ -13,7 +13,7 @@ import com.zivkesten.simplecamera.utils.Rotation
 import com.zivkesten.simplecamera.utils.initialPosition
 
 data class CameraControllerUiElementState(
-    val step: Int,
+    val screen: Int,
     val shutterButtonState: ShutterButtonState = ShutterButtonState.ENABLED,
     val imagesParams: ImagesParams,
     val orientationParams: OrientationParams,
@@ -35,7 +35,7 @@ data class CameraControllerUiElementState(
 
     private val shouldShowEndButton: Boolean
         get() = imagesParams.imagesTaken.isNotEmpty() ||
-            step != CAMERA
+            screen != CAMERA
 
     val endButtonAnimation: ButtonAnimation?
         get() = when {
@@ -47,11 +47,11 @@ data class CameraControllerUiElementState(
             )
         }
 
-    val showCenterButton get() = step == CAMERA
+    val showCenterButton get() = screen == CAMERA
 
-    val showEndButton get() = step == CAMERA || step == PREVIEW
+    val showEndButton get() = screen == CAMERA || screen == PREVIEW
 
-    private val showThumbnails get() = step == GALLERY
+    private val showThumbnails get() = screen == GALLERY
 
     private val animateThumbnails: Boolean get() = orientationParams.orientationData.previous == null
 

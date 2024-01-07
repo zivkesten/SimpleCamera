@@ -2,11 +2,7 @@ package com.zivkesten.simplecamera.presentation.viewmodel
 
 import android.net.Uri
 import android.util.Log
-import androidx.camera.core.AspectRatio
-import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.resolutionselector.AspectRatioStrategy
-import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,45 +27,34 @@ import java.io.File
 import java.net.URI
 import javax.inject.Inject
 
-
-
 @HiltViewModel
 class CameraViewModel @Inject constructor(
-    private val imageCaptureUseCase: ImageCaptureUseCase
+    val imageCaptureUseCase: ImageCaptureUseCase
 ): ViewModel() {
-
-    private val resolutionSelector = ResolutionSelector.Builder()
-        .setAspectRatioStrategy(AspectRatioStrategy(AspectRatio.RATIO_16_9, AspectRatioStrategy.FALLBACK_RULE_AUTO) )
-        .build()
-
-    val imageCapture: ImageCapture = ImageCapture.Builder().setResolutionSelector(resolutionSelector).build()
-
-    val imageTakenUri: Uri? get() = imageList.firstOrNull()?.uri
-    var scrollTo: Uri? by mutableStateOf(null)
-    private val imageList = mutableListOf<ImageData>()
-    private val imagesTimestamps = mutableListOf<Long>()
 
     private val _capturedImages = MutableStateFlow<List<String>?>(null)
     var capturedImages: StateFlow<List<String>?> = _capturedImages
 
-    var selectedImage: Uri? by mutableStateOf(null)
-    var orientationData by mutableStateOf(OrientationData(null, null))
+    private var scrollTo: Uri? by mutableStateOf(null)
+
+    private val imageList = mutableListOf<ImageData>()
+    private val imagesTimestamps = mutableListOf<Long>()
 
     var sensorOrientation = MutableStateFlow(Rotation.ROTATION_0)
 
     val cameraUiState: StateFlow<CameraUiState> = MutableStateFlow(
         CameraUiState(
-            CAMERA, false, CameraControllerUiElementState(
+            false, CameraControllerUiElementState(
                 CAMERA,
                 ShutterButtonState.ENABLED,
                 CameraControllerUiElementState.ImagesParams(
-                    emptyList(),
-                    imageTakenUri,
+                    imageList,
+                    imageList.firstOrNull()?.uri,
                     scrollTo,
                     false,
                 ),
                 CameraControllerUiElementState.OrientationParams(
-                    orientationData,
+                    OrientationData(null, null),
                     sensorOrientation.value,
                 )
             ) { onEvent(it) }
@@ -78,25 +63,39 @@ class CameraViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             sensorOrientation.collect { currentOrientation ->
-                orientationData.previous = orientationData.current
-                orientationData.current = currentOrientation
+                cameraUiState.mutable().value = cameraUiState.value.copy(
+                    cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
+                        orientationParams = cameraUiState.value.cameraUiElementState.orientationParams.copy(
+                            orientationData = cameraUiState.value.cameraUiElementState.orientationParams.orientationData.copy(
+                                previous = cameraUiState.value.cameraUiElementState.orientationParams.orientationData.current,
+                                current = currentOrientation
+                            )
+                        )
+                    )
+                )
             }
         }
     }
 
-    fun onEvent(event: CameraUiEvent) {
+    private fun onEvent(event: CameraUiEvent) {
         when (event) {
-            is CameraUiEvent.ImageFail -> Unit // TODO: Handle
-            is CameraUiEvent.FlashButtonClicked -> toggleFlashState()
-            is CameraUiEvent.ImageCaptured -> onImageCaptured()
+            is CameraUiEvent.ImageFail -> {
+                // TODO:
+                Log.e("Zivi", "ImageFail")
+            }
             is CameraUiEvent.CloseButtonClicked -> {
-                // TODO: Handle
+                // TODO:
                 Log.e("Zivi", "close clicked")
             }
 
             CameraUiEvent.ContinueBtnPressed -> {
+                // TODO:
                 Log.e("Zivi", "continue clicked")
             }
+
+
+            is CameraUiEvent.FlashButtonClicked -> toggleFlashState()
+            is CameraUiEvent.ImageCaptured -> onImageCaptured()
             is CameraUiEvent.RetakePhoto -> retakeImage()
             is CameraUiEvent.ImageSaved -> saveImage(event.image)
             is CameraUiEvent.ThumbnailClicked -> thumbnailClicked(event.image)
@@ -122,12 +121,9 @@ class CameraViewModel @Inject constructor(
             )
         )
         setIsSavingImage()
-        Log.d("Zivi", "onImageCaptured")
         imageCaptureUseCase.captureImage(
-            imageCapture,
             sensorOrientation.value,
             onImageCaptured = { uri, isFlash ->
-                Log.d("Zivi", "onImageCaptured1")
                 onEvent(
                     CameraUiEvent.ImageSaved(
                         ImageData(uri, isFlash, false, MutableTransitionState(true))
@@ -140,88 +136,93 @@ class CameraViewModel @Inject constructor(
         )
     }
 
-
-
-
-
-
     private fun thumbnailRowItemClicked(item: ImageData) {
+        val selectedImage = cameraUiState.value.cameraUiElementState.imagesParams.selectedThumbnail
         if (item.uri == selectedImage || scrollTo == item.uri) {
             removeItem(item)
         } else {
-            scrollTo = item.uri
+            cameraUiState.mutable().value = cameraUiState.value.copy(
+                cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
+                    imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
+                        scrollTo = item.uri
+                    )
+                )
+            )
         }
     }
 
     private fun setItemSelected(item: ImageData) {
-        selectedImage = item.uri
+        Log.d("Zivi", "setItemSelected ${item.uri}")
         cameraUiState.mutable().value = cameraUiState.value.copy(
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
                 imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
-                    imagesTaken = imageList.copy(item.uri)
+                    imagesTaken = imageList.copy(item.uri),
+                    selectedThumbnail = item.uri
                 )
             )
         )
     }
 
     private fun thumbnailClicked(item: ImageData) {
-        selectedImage = item.uri
+        Log.d("Zivi", "thumbnailClicked: $item")
         clearPreviousOrientationData()
         cameraUiState.mutable().value = cameraUiState.value.copy(
-            step = GALLERY,
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
+                screen = GALLERY,
                 imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
                     imagesTaken = imageList.copy(
                         imageList.firstOrNull()?.uri
-                    )
+                    ), selectedThumbnail = item.uri
                 )
             ),
         )
     }
 
     private fun clearPreviousOrientationData() {
-        orientationData.previous = null
+        cameraUiState.mutable().value = cameraUiState.value.copy(
+            isSavingImage = true,
+            cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
+                shutterButtonState = ShutterButtonState.ENABLED,
+                orientationParams = cameraUiState.value.cameraUiElementState.orientationParams.copy(
+                    orientationData = cameraUiState.value.cameraUiElementState.orientationParams.orientationData.copy(
+                        previous = null
+                    )
+                )
+            )
+        )
     }
 
     private fun retakeImage() {
-        imageList.removeLast()
         clearPreviousOrientationData()
         cameraUiState.mutable().value = cameraUiState.value.copy(
-            step = CAMERA,
             isSavingImage = false,
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
+                screen = CAMERA,
                 imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
-                    imagesTaken = imageList.copy(selectedImage)
+                    imagesTaken = imageList.copy(cameraUiState.value.cameraUiElementState.imagesParams.selectedThumbnail)
                 )
             ),
         )
     }
 
     private fun saveImage(image: ImageData) {
-        Log.d("Zivi", "saveImage")
-
         imageList.add(image)
-        Log.d("Zivi", "imageList updated $imageList")
         clearPreviousOrientationData()
         cameraUiState.mutable().value = cameraUiState.value.copy(
-            step = CAMERA,
             isSavingImage = true,
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
                 shutterButtonState = ShutterButtonState.ENABLED,
                 imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
-                    imagesTaken = imageList.copy(selectedImage)
+                    imagesTaken = imageList.copy(cameraUiState.value.cameraUiElementState.imagesParams.selectedThumbnail)
                 )
             )
         )
-
-
         imagesTimestamps.add(System.currentTimeMillis())
     }
 
     fun setIsSavingImage() {
         cameraUiState.mutable().value = cameraUiState.value.copy(isSavingImage = true)
     }
-
 
     private fun prepareAttachmentList() {
         val attachmentItems = mutableListOf<String>()
@@ -244,17 +245,12 @@ class CameraViewModel @Inject constructor(
     private fun removeItem(removedItem: ImageData) {
         // Remove from map
         imageList.remove(removedItem)
-        // Notify scroll to the last item on the list
-        scrollTo = imageList.firstOrNull()?.uri
-
-        // Change the selected value in the original map to be the one we scroll to
-        val takenImages = imageList.copy(scrollTo)
-
         // Emit a new ui state
         cameraUiState.mutable().value = cameraUiState.value.copy(
             cameraUiElementState = cameraUiState.value.cameraUiElementState.copy(
                 imagesParams = cameraUiState.value.cameraUiElementState.imagesParams.copy(
-                    imagesTaken = takenImages
+                    imagesTaken = imageList.copy(scrollTo),
+                    scrollTo = imageList.firstOrNull()?.uri
                 )
             )
         )

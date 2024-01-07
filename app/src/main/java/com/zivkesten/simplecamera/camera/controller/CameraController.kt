@@ -215,7 +215,7 @@ fun OrientationAwareCameraController(
         modifier, content = {
             StartButton(
                 startButtonModifier.testTag(START_BUTTON_TAG),
-                step = uiElementState.step,
+                step = uiElementState.screen,
                 model = uiElementState.imagesParams.imagesTaken.lastOrNull(),
                 badgeValue = uiElementState.imagesParams.imagesTaken.size.toStringOrNullIfZero(),
                 initialPosition = uiElementState.orientationParams.orientationData.initialPosition(),

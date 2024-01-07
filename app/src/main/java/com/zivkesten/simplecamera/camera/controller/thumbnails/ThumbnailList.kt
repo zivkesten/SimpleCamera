@@ -106,7 +106,6 @@ private fun ThumbnailsListSideEffects(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun AnimatedThumbnail(
     image: ImageData,

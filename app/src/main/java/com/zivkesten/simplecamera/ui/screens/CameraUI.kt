@@ -2,7 +2,6 @@ package com.zivkesten.simplecamera.ui.screens
 
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -22,7 +21,6 @@ import com.zivkesten.simplecamera.camera.controller.FlashButton
 import com.zivkesten.simplecamera.camera.controller.flashAnimationPadding
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 import com.zivkesten.simplecamera.presentation.event.CameraUiEvent
-import com.zivkesten.simplecamera.presentation.state.CameraUiState
 import kotlinx.coroutines.delay
 
 @Composable
@@ -30,7 +28,7 @@ fun CameraUI(
     cameraUiState: CameraControllerUiElementState,
 ) {
     AnimatedContent(
-        targetState = cameraUiState.step,
+        targetState = cameraUiState.screen,
         transitionSpec = { fadeIn() togetherWith fadeOut(animationSpec = tween(delayMillis = 200)) },
         label = CONTROLLER_ANIMATED_CONTENT
     ) { targetScreen ->

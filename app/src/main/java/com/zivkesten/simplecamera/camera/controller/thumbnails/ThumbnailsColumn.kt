@@ -15,7 +15,6 @@ import com.zivkesten.simplecamera.ui.animations.SlideInEnterAnimation
 import com.zivkesten.simplecamera.camera.controller.model.ImageData
 import com.zivkesten.simplecamera.camera.controller.state.CameraControllerUiElementState
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ThumbnailsColumn(
     modifier: Modifier,

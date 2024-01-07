@@ -3,8 +3,11 @@ package com.zivkesten.simplecamera.usecases
 import android.content.Context
 import android.net.Uri
 import android.view.Surface
+import androidx.camera.core.AspectRatio
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.resolutionselector.AspectRatioStrategy
+import androidx.camera.core.resolutionselector.ResolutionSelector
 import com.zivkesten.simplecamera.utils.Rotation
 import java.io.File
 import java.io.IOException
@@ -20,8 +23,12 @@ class ImageCaptureUseCaseImpl(
     private val context: Context,
 ) : ImageCaptureUseCase {
 
+    override val imageCapture: ImageCapture = ImageCapture.Builder().setResolutionSelector(
+        ResolutionSelector.Builder()
+        .setAspectRatioStrategy(AspectRatioStrategy(AspectRatio.RATIO_16_9, AspectRatioStrategy.FALLBACK_RULE_AUTO) )
+        .build()).build()
+
     override fun captureImage(
-        imageCapture: ImageCapture,
         sensorOrientation: Rotation,
         onImageCaptured: (Uri, Boolean) -> Unit,
         onError: ((String, ImageCaptureException) -> Unit)?

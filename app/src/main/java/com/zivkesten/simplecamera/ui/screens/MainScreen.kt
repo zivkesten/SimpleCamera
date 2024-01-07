@@ -39,9 +39,4 @@ fun MainScreen(
 
     // Camera controller
     CameraUI(uiState.cameraUiElementState)
-
-    LaunchedEffect(uiState.cameraUiElementState.shutterButtonState){
-        Log.d("Zivi", "MainScreen: ${uiState.cameraUiElementState.shutterButtonState}")
-    }
-
 }

@@ -12,14 +12,7 @@ fun ImagePreview(
     modifier: Modifier = Modifier,
     model: Any?,
 ) {
-    Box(
-        modifier = modifier.then(
-            Modifier.background(Color.Black)
-        )
-    ) {
-        CoilImageComponent(
-            Modifier,
-            model
-        )
+    Box(modifier = modifier.then(Modifier.background(Color.Black))) {
+        CoilImageComponent(Modifier, model)
     }
 }

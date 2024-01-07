@@ -6,10 +6,12 @@ import androidx.camera.core.ImageCaptureException
 import com.zivkesten.simplecamera.utils.Rotation
 
 interface ImageCaptureUseCase {
-     fun captureImage(
-         imageCapture: ImageCapture,
-         sensorOrientation: Rotation,
-         onImageCaptured: (Uri, Boolean) -> Unit,
-         onError: ((String, ImageCaptureException) -> Unit)?
+
+    val imageCapture: ImageCapture
+
+    fun captureImage(
+        sensorOrientation: Rotation,
+        onImageCaptured: (Uri, Boolean) -> Unit,
+        onError: ((String, ImageCaptureException) -> Unit)?
     )
 }

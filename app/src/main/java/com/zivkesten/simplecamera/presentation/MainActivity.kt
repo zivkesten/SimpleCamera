@@ -18,6 +18,7 @@ import com.zivkesten.simplecamera.presentation.viewmodel.CameraViewModel
 import com.zivkesten.simplecamera.ui.screens.MainScreen
 import com.zivkesten.simplecamera.ui.screens.PermissionRequestScreen
 import com.zivkesten.simplecamera.ui.theme.SimpleCameraTheme
+import com.zivkesten.simplecamera.usecases.ImageCaptureUseCase
 import com.zivkesten.simplecamera.utils.hideSystemUI
 import com.zivkesten.simplecamera.utils.onGlobalLayout
 import com.zivkesten.simplecamera.utils.toSensorOrientation
@@ -56,9 +57,11 @@ class MainActivity : ComponentActivity() {
             SimpleCameraTheme {
                 val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
                 val coroutineScope = rememberCoroutineScope()
-                val uiState = viewModel.cameraUiState
+
                 if (cameraPermissionState.status.isGranted) {
-                    MainScreen(uiState.collectAsState().value, viewModel.imageCapture)
+                    val imageCapture = viewModel.imageCaptureUseCase.imageCapture
+                    val uiState = viewModel.cameraUiState.collectAsState().value
+                    MainScreen(uiState, imageCapture)
                 } else {
                     PermissionRequestScreen(coroutineScope, cameraPermissionState)
                 }

@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -23,25 +23,26 @@ fun RotateToPosition(
     animationSpec: AnimationSpec<Float>? = null,
     content: @Composable () -> Unit,
 ) {
-    var initialPosition by remember { mutableStateOf(initialPosition) }
+    var position by remember { mutableFloatStateOf(initialPosition) }
     val animation = animateFloatAsState(
         animationSpec = animationSpec ?: spring(
             dampingRatio = Spring.DampingRatioLowBouncy,
             stiffness = Spring.StiffnessLow,
         ),
-        targetValue = initialPosition,
+        targetValue = position,
+        label = "Rotate animation",
     )
     Box(
         modifier = Modifier
             .wrapContentSize()
             .then(modifier)
-            .rotate(initialPosition)
+            .rotate(position)
             .rotate(animation.value)
     ) {
         content()
     }
 
     LaunchedEffect(LocalConfiguration.current.orientation) {
-        initialPosition = 0f
+        position = 0f
     }
 }

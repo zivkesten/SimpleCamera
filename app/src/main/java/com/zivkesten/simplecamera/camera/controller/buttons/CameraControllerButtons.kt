@@ -84,7 +84,7 @@ fun StartButton(
         ) {
             RotatableButton(
                 Modifier,
-                R.drawable.flash_off,
+                R.drawable.retake,
                 initialPosition ?: 0f,
             ) {
                 onClick(CameraUiEvent.RetakePhoto)
@@ -97,7 +97,7 @@ fun StartButton(
         ) {
             RotatableButton(
                 Modifier,
-                R.drawable.flash_on,
+                R.drawable.ic_white_left_arrow_without_tail,
                 initialPosition ?: 0f,
             ) {
                 onClick(CameraUiEvent.RetakePhoto)
